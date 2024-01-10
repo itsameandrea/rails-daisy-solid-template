@@ -63,3 +63,4 @@ end
 gem "view_component", "~> 3.10"
 gem "view_component-contrib", "~> 0.2.2"
 gem "dry-initializer"
+gem "solid_queue"

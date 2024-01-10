@@ -5,7 +5,7 @@ if Rails.application.config.view_component.raise_on_db_queries
     Thread.current[:last_sql_query] = event
   end
 
-  ActiveSupport::Notifications.subscribe("!render.view_component") do |*args|
+  ActiveSupport::Notifications.subscribe("render.view_component") do |*args|
     event = ActiveSupport::Notifications::Event.new(*args)
     last_sql_query = Thread.current[:last_sql_query]
     next unless last_sql_query
