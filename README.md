@@ -1,24 +1,10 @@
-# README
+# Rails 🤝 SQlite 🤝 TailwindCSS 🤝 DaisyUI 🤝 SolidQueue 🤝 SolidCache
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Simple, barebones template to start a new rails project with
 
-Things you may want to cover:
+* Rails 7.1.2
+* Ruby 3.3.0
+* Tailwind 3.4.1
+* DaisyUI 4.5.0
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+This template is using SolidQueue and SolidCache (still in beta) backed by different sqlite DBs (as per [@fractaledmind]( https://fractaledmind.github.io/2024/01/02/sqlite-quick-tip-multiple-databases))
