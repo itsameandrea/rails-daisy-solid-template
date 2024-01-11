@@ -7,6 +7,6 @@ Simple, barebones template to start a new rails project with
 * Turbo 8 (still in beta)
 * Tailwind 3.4.1
 * DaisyUI 4.5.0
-* ViewComponents
+* ViewComponents (set up as per this gem of a series by [evilmartials](https://evilmartians.com/chronicles/viewcomponent-in-the-wild-building-modern-rails-frontends))
 
 This template is using SolidQueue and SolidCache (still in beta) backed by different sqlite DBs (as per [@fractaledmind]( https://fractaledmind.github.io/2024/01/02/sqlite-quick-tip-multiple-databases))
