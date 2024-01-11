@@ -8,7 +8,7 @@ class Hero::ComponentTest < ViewComponent::TestCase
 
     render_inline(component)
 
-    assert_selector "div"
+    assert_text "Hello there"
   end
 
   private

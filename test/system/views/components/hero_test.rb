@@ -6,8 +6,6 @@ class Hero::ComponentSystemTest < ApplicationSystemTestCase
   def test_default_preview
     visit("/rails/view_components/hero/default")
 
-    # assert_text "Hello!"
-    # click_on("Click me!")
-    # assert_text "Good-bye!"
+    assert_text "Hello therf"
   end
 end
