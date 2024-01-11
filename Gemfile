@@ -37,6 +37,18 @@ gem "bootsnap", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
+# View layer
+gem "view_component"
+gem "view_component-contrib", "~> 0.2.2"
+gem "dry-initializer"
+
+# Background jobs
+gem "solid_queue"
+gem "panoptic"
+
+# Manage cache
+gem "solid_cache"
+
 group :test do
   gem "capybara"
   gem "selenium-webdriver"
@@ -59,9 +71,3 @@ group :development do
   # gem "spring"
 end
 
-
-gem "view_component"
-gem "view_component-contrib", "~> 0.2.2"
-gem "dry-initializer"
-gem "solid_queue"
-gem "solid_cache"
