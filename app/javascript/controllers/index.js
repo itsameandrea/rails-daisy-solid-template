@@ -4,5 +4,11 @@
 
 import { application } from "./application"
 
+import FilepondController from "./filepond_controller"
+application.register("filepond", FilepondController)
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
+
+import ToastifyController from "./toastify_controller"
+application.register("toastify", ToastifyController)

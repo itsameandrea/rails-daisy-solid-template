@@ -1,11 +1,12 @@
 # frozen_string_literal: true
+require 'rails/generators'
 
 # Based on https://github.com/github/view_component/blob/master/lib/rails/generators/component/component_generator.rb
-class ViewComponentGenerator < Rails::Generators::NamedBase
+class Generators::ViewComponent::ViewComponentGenerator < Rails::Generators::NamedBase
   source_root File.expand_path("templates", __dir__)
 
-  class_option :skip_test, type: :boolean, default: false
-  class_option :skip_system_test, type: :boolean, default: false
+  class_option :skip_test, type: :boolean, default: true
+  class_option :skip_system_test, type: :boolean, default: true
   class_option :skip_preview, type: :boolean, default: false
 
   argument :attributes, type: :array, default: [], banner: "attribute"

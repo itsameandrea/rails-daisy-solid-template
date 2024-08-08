@@ -2,15 +2,20 @@ default: &default
   adapter: sqlite3
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
- 
+
 primary: &primary
   <<: *default
   database: storage/<%= Rails.env %>.sqlite3
- 
+
 queue: &queue
   <<: *default
   migrations_paths: db/queue/migrate
   database: storage/queue.sqlite3
+
+cable: &cable
+  <<: *default
+  migrations_paths: db/cable/migrate
+  database: storage/cable.sqlite3
 
 cache: &cache
   <<: *default
@@ -21,12 +26,22 @@ development:
   primary: *primary
   queue: *queue
   cache: *cache
- 
+  cable: *cable
+
 test:
   <<: *primary
   database: db/test.sqlite3
- 
+
 production:
-  primary: *primary
-  queue: *queue
-  cache: *cache
+  primary:
+    <<: *default
+    database: <%= ENV['DATABASE_URL'] || 'sqlite3:///data/production.sqlite3' %>
+  queue:
+    <<: *default
+    database: <%= ENV['QUEUE_DATABASE_URL'] || 'sqlite3:///data/queue.sqlite3' %>
+  cache:
+    <<: *default
+    database: <%= ENV['CACHE_DATABASE_URL'] || 'sqlite3:///data/cache.sqlite3' %>
+  cable:
+    <<: *default
+    database: <%= ENV['CABLE_DATABASE_URL'] || 'sqlite3:///data/cable.sqlite3' %>

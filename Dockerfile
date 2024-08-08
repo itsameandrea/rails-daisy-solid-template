@@ -13,7 +13,6 @@ ENV RAILS_ENV="production" \
     BUNDLE_PATH="/usr/local/bundle" \
     BUNDLE_WITHOUT="development"
 
-
 # Throw-away build stage to reduce size of final image
 FROM base as build
 
@@ -21,10 +20,19 @@ FROM base as build
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential curl git libvips node-gyp pkg-config python-is-python3
 
+
+# Install jemalloc for better memory management
+RUN apt-get update ; \
+    apt-get install -y --no-install-recommends libjemalloc2 ; \
+    rm -rf /var/lib/apt/lists/*
+
+ENV LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2
+
 # Install JavaScript dependencies
-ARG NODE_VERSION=16.13.0
-ARG YARN_VERSION=1.22.17
+ARG NODE_VERSION=18.18.2
+ARG YARN_VERSION=1.22.19
 ENV PATH=/usr/local/node/bin:$PATH
+RUN echo "Building with Node version: $NODE_VERSION"
 RUN curl -sL https://github.com/nodenv/node-build/archive/master.tar.gz | tar xz -C /tmp/ && \
     /tmp/node-build-master/bin/node-build "${NODE_VERSION}" /usr/local/node && \
     npm install -g yarn@$YARN_VERSION && \
@@ -47,7 +55,7 @@ COPY . .
 RUN bundle exec bootsnap precompile app/ lib/
 
 # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
-RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
+RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile && yarn build:css
 
 
 # Final stage for app image
@@ -64,10 +72,15 @@ COPY --from=build /rails /rails
 
 # Run and own only the runtime files as a non-root user for security
 RUN useradd rails --create-home --shell /bin/bash && \
-    chown -R rails:rails db log storage tmp
+    mkdir -p /data && \
+    chown -R rails:rails db log storage tmp /data
 USER rails:rails
 
 # Entrypoint prepares the database.
+ENV DATABASE_URL=sqlite3:///data/production.sqlite3
+ENV CACHE_DATABASE_URL=sqlite3:///data/cache.sqlite3
+ENV QUEUE_DATABASE_URL=sqlite3:///data/queue.sqlite3
+ENV CABLE_DATABASE_URL=sqlite3:///data/cable.sqlite3
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
 # Start the server by default, this can be overwritten at runtime

@@ -1,0 +1,37 @@
+# Name of your application. Used to uniquely configure containers.
+service: YOUR_PROJECT_NAME # replace with your project name
+
+# Name of the container image.
+image: YOUR_DOCKER_IMAGE_NAME # replace with your docker image name
+
+# Deploy to these servers.
+servers:
+  web:
+    hosts:
+      - 162.55.57.168
+    labels:
+      traefik.http.routers.YOUR_PROJECT_NAME_secure.entrypoints: websecure # replace with your project name
+      traefik.http.routers.YOUR_PROJECT_NAME_secure.rule: Host(`YOUR_DOMAIN`) # replace with your domain
+      traefik.http.routers.YOUR_PROJECT_NAME_secure.tls: true # replace with your project name
+
+volumes:
+  - "NAME_OF_YOUR_PROJECT:/data" # replace with your project name
+
+traefik:
+  options:
+    publish:
+      - 443:443
+  args:
+    entryPoints.websecure.address: ":443"
+
+# Credentials for your image host.
+registry:
+  username: REGISTRY_USERNAME # replace with your docker registry username
+  password:
+    - KAMAL_REGISTRY_PASSWORD # add this to your .env file
+
+# Inject ENV variables into containers (secrets come from .env).
+# Remember to run `kamal env push` after making changes!
+env:
+  secret:
+    - RAILS_MASTER_KEY

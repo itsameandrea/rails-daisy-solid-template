@@ -1,0 +1,8 @@
+<% case button_kind %>
+<% when :link %>
+  <%= link_to(url, disabled: disabled, class: classes, **attributes.except(:class, :type)) { content } %>
+<% when :button_to %>
+  <%= button_to(url, disabled: disabled, method: method, class: classes, **attributes.except(:class, :type)) { content } %>
+<% when :button %>
+  <%= tag.button(type: type, disabled: disabled, class: classes, **attributes.except(:class, :type)) { content } %>
+<% end %>

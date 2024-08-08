@@ -1,0 +1,9 @@
+<div data-controller="toastify">
+  <% if notice %>
+    <%= tag.span notice, class: "sr-only", data: { toastify_target: "notice" } %>
+  <% end %>
+
+  <% if alert %>
+    <%= tag.span alert, class: "sr-only", data: { toastify_target: "alert" } %>
+  <% end %>
+</div>
