@@ -18,7 +18,7 @@ require "action_cable/engine"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module Hallwaytrackk
+module DaisySolidTemplate
   class Application < Rails::Application
     config.autoload_paths << Rails.root.join("app", "views", "components")
     config.view_component.preview_paths << Rails.root.join("app", "views", "components")
