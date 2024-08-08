@@ -8,7 +8,7 @@ image: YOUR_DOCKER_IMAGE_NAME # replace with your docker image name
 servers:
   web:
     hosts:
-      - 162.55.57.168
+      - YOUR_SERVER_IP_ADDRESS # replace with your server ip address
     labels:
       traefik.http.routers.YOUR_PROJECT_NAME_secure.entrypoints: websecure # replace with your project name
       traefik.http.routers.YOUR_PROJECT_NAME_secure.rule: Host(`YOUR_DOMAIN`) # replace with your domain
